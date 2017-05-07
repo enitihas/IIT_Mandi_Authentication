@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """
 A simple python script to automate IIT Mandi Gateway Authentication
 Author : Abhishek Pandey, Sahil Arora, Shikhar Gupta
@@ -9,6 +9,9 @@ import signal
 import sys
 import time
 import requests
+
+if sys.version_info[0] < 3:
+    input = raw_input
 
 
 def main():
