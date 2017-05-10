@@ -27,19 +27,19 @@ def main():
 
     # Assuming order -> <gateway-choice:[1,2]> <username> <password> in the arguments
     argc = len(sys.argv)
-    if(argc >= 2 and sys.argv[1] in ('1','2')):
-    	ans = int(sys.argv[1]) - 1
-    	auth = auths[ans]
-    else:    	
-	    print("Please Choose your proxy server")
-	    for i, auth in enumerate(auths):
-	        print("[{}] {}".format(i + 1, auth))
-	    ans = input().strip()
-	    if ans not in ('1', '2'):
-	        print("Only 1 or 2 accepted as answers")
-	        return
-	    ans = int(ans) - 1
-	    auth = auths[ans]
+    if (argc >= 2 and sys.argv[1] in ('1', '2')):
+        ans = int(sys.argv[1]) - 1
+        auth = auths[ans]
+    else:
+        print("Please Choose your proxy server")
+        for i, auth in enumerate(auths):
+            print("[{}] {}".format(i + 1, auth))
+        ans = input().strip()
+        if ans not in ('1', '2'):
+            print("Only 1 or 2 accepted as answers")
+            return
+        ans = int(ans) - 1
+        auth = auths[ans]
 
     def logout(signal, frame):
         """
@@ -51,15 +51,16 @@ def main():
         sys.exit(0)
 
     signal.signal(signal.SIGINT, logout)
-    if(argc >= 3):
-    	user = sys.argv[2]
+    signal.signal(signal.SIGTERM, logout)
+    if (argc >= 3):
+        user = sys.argv[2]
     else:
-	    print("Username: ")
-	    user = input()
-    if(argc >= 4):
-    	passwd = sys.argv[3]
+        print("Username: ")
+        user = input()
+    if (argc >= 4):
+        passwd = sys.argv[3]
     else:
-    	passwd = getpass.getpass()
+        passwd = getpass.getpass()
     resp = client.post(auth, dict(username=user, password=passwd, url=""))
     email = "{}@students.iitmandi.ac.in".format(user)
     if email in resp.text:
