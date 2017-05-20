@@ -20,6 +20,7 @@ def main():
     """
 
     client = requests.session()
+    locations = ['Hostels', 'Academic Block']
     gateways = ['stgw.iitmandi.ac.in/ug', 'gateway.iitmandi.ac.in/facstaff']
     auths = ['https://' + url + '/authenticate.php' for url in gateways]
     logouts = ['http://' + url + '/logout.php' for url in gateways]
@@ -31,8 +32,8 @@ def main():
         ans = int(sys.argv[1]) - 1
         auth = auths[ans]
     else:
-        print("Please Choose your proxy server")
-        for i, auth in enumerate(auths):
+        print("Please Choose your location")
+        for i, auth in enumerate(locations):
             print("[{}] {}".format(i + 1, auth))
         ans = input().strip()
         if ans not in ('1', '2'):
